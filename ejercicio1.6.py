@@ -1,7 +1,16 @@
 import json
 
 def get_postal_code():
-    code = input("Ingrese el código postal a buscar: ")
+    while True:
+        code = input("Ingrese el código postal a buscar: ")
+        if len(code) == 5:
+            try:
+                int(code)
+                break
+            except:
+                print("Debe ingresar solo números!")
+        else:
+            print("El código postal se debe componer de 5 dígitos")
     return code
 
 def find_postal_code(code, json_file):
@@ -16,6 +25,6 @@ if __name__ == "__main__":
     postal_code = get_postal_code()
     response = find_postal_code(postal_code, 'codigos_postales.json')
     if response == False:
-        print("Código Postal NO encontrado")
+        print("\nCódigo Postal NO encontrado")
     else:
         print(f"El código pertenece a... \nEstado: {response['d_estado']}\nEstado: {response['d_nmpio']} ")
